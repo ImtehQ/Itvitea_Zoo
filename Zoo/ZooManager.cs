@@ -33,6 +33,8 @@ namespace Zoo
 
         public void CheckAnimals()
         {
+            if (Animals.Count == 0)
+                return;
             foreach (Animal animal in Animals)
             {
                 if (animal.alive == false || animal.Energy <= 0) 
@@ -45,6 +47,8 @@ namespace Zoo
 
         public void FeedingTime()
         {
+            if (Animals.Count == 0)
+                return;
             foreach (Animal animal in Animals)
             {
                 animal.Eat();
@@ -52,6 +56,8 @@ namespace Zoo
         }
         public void FeedingTime(string animalTypeString = null)
         {
+            if (Animals.Count == 0)
+                return;
             foreach (Animal animal in Animals)
             {
                 if (animalTypeString != null && animal.GetType().Name == animalTypeString)
@@ -63,6 +69,8 @@ namespace Zoo
 
         public void UseEnergy()
         {
+            if (Animals.Count == 0)
+                return;
             foreach (Animal animal in Animals)
             {
                 animal.UseEnergy();
