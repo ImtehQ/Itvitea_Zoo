@@ -37,62 +37,81 @@ namespace Itvitea_Zoo
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+
             dispatcherTimer.Interval = new TimeSpan(0, 0, 500);
             dispatcherTimer.Start();
 
             UpdateSlowASSLOadingLabelUIContent();
         }
 
+        /// <summary>
+        /// Geen idee het werkt niet?!
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             manager.UseEnergy();
+            manager.CheckAnimals();
             UpdateListBox();
         }
+
 
         private void UpdateListBox()
         {
             AnimalListBox.Items.Clear();
             foreach (Zoo.Animal animal in manager.Animals)
             {
-                AnimalListBox.Items.Add(new ListBoxItem { Content = $"{animal.Name} | {animal.GetType().ToString()}"});
+                AnimalListBox.Items.Add(new ListBoxItem { Content = $"{animal.Name} | {animal.GetType().ToString()} | {animal.Energy}"});
             }
         }
 
         private void FeedMonkeybtn_Click(object sender, RoutedEventArgs e)
         {
             manager.FeedingTime("Monkey");
+            manager.CheckAnimals();
+            UpdateListBox();
         }
 
         private void FeedLionbtn_Click(object sender, RoutedEventArgs e)
         {
             manager.FeedingTime("Lion");
+            manager.CheckAnimals();
+            UpdateListBox();
         }
 
         private void FeedElephantbtn_Click(object sender, RoutedEventArgs e)
         {
             manager.FeedingTime("Elephant");
+            manager.CheckAnimals();
+            UpdateListBox();
         }
 
         private void FeedAllbtn_Click(object sender, RoutedEventArgs e)
         {
             manager.FeedingTime();
+            manager.CheckAnimals();
+            UpdateListBox();
         }
 
         private void AddMonkeybtn_Copy_Click(object sender, RoutedEventArgs e)
         {
             manager.AddAnimal(new Zoo.Monkey(nameGenerator.GenerateRandomFirstName()));
+            manager.CheckAnimals();
             UpdateListBox();
         }
 
         private void AddLionbtn_Copy_Click(object sender, RoutedEventArgs e)
         {
             manager.AddAnimal(new Zoo.Lion(nameGenerator.GenerateRandomFirstName()));
+            manager.CheckAnimals();
             UpdateListBox();
         }
 
         private void AddElephantbtn_Copy_Click(object sender, RoutedEventArgs e)
         {
             manager.AddAnimal(new Zoo.Elephant(nameGenerator.GenerateRandomFirstName()));
+            manager.CheckAnimals();
             UpdateListBox();
         }
 
@@ -107,5 +126,19 @@ namespace Itvitea_Zoo
             if (timerSpeedLabel != null)
                 timerSpeedLabel.Content = $"{dispatcherTimer.Interval.TotalSeconds} speed units";
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            manager.UseEnergy();
+            manager.CheckAnimals();
+            UpdateListBox();
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

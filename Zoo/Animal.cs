@@ -17,11 +17,14 @@ namespace Zoo
 
         internal int eatingValue = 25;
 
-        public abstract void UseEnergy();
+        public void UseEnergy()
+        {
+            Energy -= consumingEnergy;
+        }
 
-        public abstract void Eat();
-
-        public abstract void FeedingTime();
-
+        public void Eat()
+        {
+            Energy += eatingValue * foodUnits;
+        }
     }
 }

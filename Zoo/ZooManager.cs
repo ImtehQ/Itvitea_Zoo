@@ -19,6 +19,9 @@ namespace Zoo
 
         private void RemoveAnimals()
         {
+            if (pendingDeadAnimals.Count == 0)
+                return;
+
             for (int i = 0; i < pendingDeadAnimals.Count; i++)
             {
                 Animals.Remove(pendingDeadAnimals[i]);
@@ -28,15 +31,34 @@ namespace Zoo
                 pendingDeadAnimals.Clear();
         }
 
+        public void CheckAnimals()
+        {
+            foreach (Animal animal in Animals)
+            {
+                if (animal.alive == false || animal.Energy <= 0) 
+                { 
+                    pendingDeadAnimals.Add(animal); 
+                }
+            }
+            RemoveAnimals();
+        }
+
+        public void FeedingTime()
+        {
+            foreach (Animal animal in Animals)
+            {
+                animal.Eat();
+            }
+        }
         public void FeedingTime(string animalTypeString = null)
         {
             foreach (Animal animal in Animals)
             {
-                if (animalTypeString != null && animal.GetType().ToString() != "Zoo." + animalTypeString) { }
-                animal.FeedingTime();
-                if (!animal.alive) { pendingDeadAnimals.Add(animal); }
+                if (animalTypeString != null && animal.GetType().Name == animalTypeString)
+                {
+                    animal.Eat();
+                }
             }
-            RemoveAnimals();
         }
 
         public void UseEnergy()
@@ -44,9 +66,7 @@ namespace Zoo
             foreach (Animal animal in Animals)
             {
                 animal.UseEnergy();
-                if (!animal.alive) { pendingDeadAnimals.Add(animal); }
             }
-            RemoveAnimals();
         }
     }
 }
