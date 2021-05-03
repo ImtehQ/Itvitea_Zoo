@@ -12,11 +12,18 @@ namespace Zoo
         private List<Animal> pendingDeadAnimals = new List<Animal>();
 
 
+        /// <summary>
+        /// Add a new animal
+        /// </summary>
+        /// <param name="animal"></param>
         public void AddAnimal(Animal animal)
         {
             Animals.Add(animal);
         }
 
+        /// <summary>
+        /// Removes the corpses
+        /// </summary>
         private void RemoveAnimals()
         {
             if (pendingDeadAnimals.Count == 0)
@@ -31,6 +38,10 @@ namespace Zoo
                 pendingDeadAnimals.Clear();
         }
 
+
+        /// <summary>
+        /// Checks and updates Alive status
+        /// </summary>
         public void CheckAnimals()
         {
             if (Animals.Count == 0)
@@ -45,6 +56,9 @@ namespace Zoo
             RemoveAnimals();
         }
 
+        /// <summary>
+        /// Feed all animals
+        /// </summary>
         public void FeedingTime()
         {
             if (Animals.Count == 0)
@@ -54,6 +68,12 @@ namespace Zoo
                 animal.Eat();
             }
         }
+
+        /// <summary>
+        /// Feeds all animals if animalTypeString is null
+        /// else feed just the one type.
+        /// </summary>
+        /// <param name="animalTypeString"></param>
         public void FeedingTime(string animalTypeString = null)
         {
             if (Animals.Count == 0)
@@ -67,6 +87,9 @@ namespace Zoo
             }
         }
 
+        /// <summary>
+        /// Uses the engery of all animals
+        /// </summary>
         public void UseEnergy()
         {
             if (Animals.Count == 0)

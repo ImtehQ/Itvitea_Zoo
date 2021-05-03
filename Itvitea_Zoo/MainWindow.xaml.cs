@@ -24,7 +24,6 @@ namespace Itvitea_Zoo
     {
         public Zoo.ZooManager manager = new Zoo.ZooManager();
         private PersonNameGenerator nameGenerator = new PersonNameGenerator();
-        private System.Timers.Timer timer = new System.Timers.Timer();
 
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
 
@@ -38,7 +37,7 @@ namespace Itvitea_Zoo
         {
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
 
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 500);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0,500);
             dispatcherTimer.Start();
 
             UpdateSlowASSLOadingLabelUIContent();
@@ -57,6 +56,9 @@ namespace Itvitea_Zoo
         }
 
 
+        /// <summary>
+        /// Updates the information in the listbox
+        /// </summary>
         private void UpdateListBox()
         {
             AnimalListBox.Items.Clear();
@@ -117,14 +119,17 @@ namespace Itvitea_Zoo
 
         private void TimerSpeedSlicer_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            dispatcherTimer.Interval = new TimeSpan(0, 0, (int)TimerSpeedSlicer.Value);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0,(int)TimerSpeedSlicer.Value);
             UpdateSlowASSLOadingLabelUIContent();
         }
 
+        /// <summary>
+        /// does what is said on the box.
+        /// </summary>
         private void UpdateSlowASSLOadingLabelUIContent()
         {
             if (timerSpeedLabel != null)
-                timerSpeedLabel.Content = $"{dispatcherTimer.Interval.TotalSeconds} speed units";
+                timerSpeedLabel.Content = $"{dispatcherTimer.Interval.TotalMilliseconds} speed units";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
